@@ -1,0 +1,25 @@
+[E 2021-03-05 22:20:56,399 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {'status': {'status_code': 400}, 'response': {'token': '', 'accounts': [], 'detail': 'ORA-20003: customer_not_exist\nORA-06512: at "STSTX.SGTP_LOGIN_G", line 393\nORA-06512: at line 1', 'ip_address': '219.84.254.101', 'client_name': ''}}
+[E 2021-03-05 22:21:06,393 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {'status': {'status_code': 400}, 'response': {'token': '', 'accounts': [], 'detail': 'ORA-20003: customer_not_exist\nORA-06512: at "STSTX.SGTP_LOGIN_G", line 393\nORA-06512: at line 1', 'ip_address': '219.84.254.101', 'client_name': ''}}
+[E 2021-03-06 18:03:47,390 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {'status': {'status_code': 400}, 'response': {'token': '', 'accounts': [], 'detail': 'ORA-20003: customer_not_exist\nORA-06512: at "STSTX.SGTP_LOGIN_G", line 393\nORA-06512: at line 1', 'ip_address': '219.84.254.101', 'client_name': ''}}
+[E 2021-03-06 21:07:13,577 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {'status': {'status_code': 400}, 'response': {'token': '', 'accounts': [], 'detail': 'ORA-20003: customer_not_exist\nORA-06512: at "STSTX.SGTP_LOGIN_G", line 393\nORA-06512: at line 1', 'ip_address': '219.84.254.101', 'client_name': ''}}
+[E 2021-03-07 20:36:55,926 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {}
+[E 2021-03-08 10:18:57,242 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {}
+[E 2021-03-08 10:35:50,866 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {}
+[E 2021-03-08 13:21:40,451 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {}
+[E 2021-03-08 23:15:36,662 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {}
+[E 2021-03-08 23:16:17,435 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {}
+[E 2021-03-09 03:02:03,730 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {}
+[E 2021-03-09 11:49:49,370 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {}
+[E 2021-03-09 11:53:45,305 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {}
+[E 2021-03-09 12:00:28,008 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {}
+[E 2021-03-09 19:36:15,450 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {}
+[E 2021-03-09 19:42:30,233 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {}
+[E 2021-03-09 20:06:40,354 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {}
+[E 2021-03-10 21:30:29,689 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {}
+[E 2021-03-10 21:30:29,697 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {}
+[E 2021-03-10 22:48:36,093 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {}
+[E 2021-03-11 00:49:47,063 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {}
+[E 2021-03-11 02:29:17,201 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {}
+[E 2021-03-11 09:35:49,644 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {}
+[E 2021-03-11 09:52:38,452 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {}
+[E 2021-03-11 11:42:07,461 /opt/anaconda3/lib/python3.8/site-packages/shioaji/utils.py:42:raise_resp_error] {}
