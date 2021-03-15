@@ -108,8 +108,10 @@ def get_stocks(date, connection):
     codes = df[
 #                 ((df['收盤價'] >= 10) & 
 #                 (df['收盤價'] < 11.45)) or 
-               ((df['收盤價'] >= 100) & 
-                (df['收盤價'] < 115)) &
+#                ((df['收盤價'] >= 100) & 
+#                 (df['收盤價'] < 115)) &
+                ((df['收盤價'] >= 10) & 
+                (df['收盤價'] < 11.45)) &
 #                 df['收盤價'] >= 111) & 
 #                 (df['收盤價'] < 115) &
                  (df['股價振幅'] > 4) &
@@ -120,7 +122,7 @@ def get_stocks(date, connection):
 
 
 def get_stock(code, connection, api):
-    
+
     try:
         sql = "SELECT * FROM stocks WHERE code = '{}'".format(code)
         df = pd.read_sql(sql, connection, index_col=['code'])
@@ -131,6 +133,9 @@ def get_stock(code, connection, api):
         return df, True
     
     stock = api.Contracts.Stocks[code]
+
+    if stock == None:
+        return df, False
     
     stock_dict = {
         'code': [stock.code],
