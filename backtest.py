@@ -54,7 +54,7 @@ def day_trading_backtest(code, date, connection, api):
     prev_trading_date = tw_calendar.previous_close(date).date()
     
     ticks = get_ticks(code, prev_trading_date, connection, api)[0].append(get_ticks(code, date, connection, api)[0])
-    kbars = ticks_to_kbars(ticks, '5Min')
+    kbars = ticks_to_kbars(ticks, '1Min')
     if kbars.empty:
         return pd.DataFrame()
     kbars = get_technical_indicator(kbars)
