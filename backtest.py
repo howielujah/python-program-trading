@@ -25,14 +25,14 @@ def get_technical_indicator(kbars):
 #     kbars['macdsignal'] = macdsignal
 #     kbars['macdhist'] = macdhist
     
-    kbars['slowk'], kbars['slowd'] = talib.STOCH(kbars.high,
-                        kbars.low,
-                        kbars.close,
-                        fastk_period=9,
-                        slowk_period=3,
-                        slowk_matype=0,
-                        slowd_period=3,
-                        slowd_matype=0)
+#     kbars['slowk'], kbars['slowd'] = talib.STOCH(kbars.high,
+#                         kbars.low,
+#                         kbars.close,
+#                         fastk_period=9,
+#                         slowk_period=3,
+#                         slowk_matype=0,
+#                         slowd_period=3,
+#                         slowd_matype=0)
     kbars['cci'] = talib.CCI(kbars.high, kbars.low, kbars.close, timeperiod=14)
     
     upper, middle, lower = talib.BBANDS(kbars.close, 
