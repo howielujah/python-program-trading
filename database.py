@@ -100,9 +100,13 @@ def get_stocks(date, connection):
     
     tw_calendar = get_calendar('XTAI')
     
-    prev_trading_date = tw_calendar.previous_close(date).date()
+    nearly_five_days = tw_calendar.sessions_window(date, -3).date
+#     prev_trading_date = tw_calendar.previous_close(date).date()
     
-    df = pd.read_sql('SELECT * FROM daily_prices WHERE 日期 = "{} 00:00:00"'.format(prev_trading_date),
+#     df = pd.read_sql('SELECT * FROM daily_prices WHERE 日期 = "{} 00:00:00"'.format(prev_trading_date),
+#                      connection, parse_dates=['日期'])
+
+    df = pd.read_sql('SELECT *, AVG(成交股數) 平均成交股數, AVG(股價振幅) 平均股價振幅 FROM (SELECT * FROM daily_prices WHERE 日期 >= "{} 00:00:00" and 日期 <= "{} 00:00:00" ORDER BY 日期 DESC) GROUP by 證券代號'.format(nearly_five_days[0], nearly_five_days[nearly_five_days.size - 1]),
                      connection, parse_dates=['日期'])
     
     codes = df[
@@ -110,10 +114,9 @@ def get_stocks(date, connection):
           (df['收盤價'] < 11.45)) |
          ((df['收盤價'] >= 100) &
           (df['收盤價'] < 115))) &
-        # ((df['收盤價'] >= 100) &
-        #  (df['收盤價'] < 115)) &
-        (df['股價振幅'] > 4) &
-        (df['成交股數'] >= 1000000)].sort_values(by=['成交股數'])['證券代號'].tolist()
+        (df['漲跌價差'] > 0) &
+        (df['平均股價振幅'] >= 4) &
+        (df['平均成交股數'] >= 3000000)].sort_values(by=['平均股價振幅'])['證券代號'].tolist()
     
     return codes
 

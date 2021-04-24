@@ -18,21 +18,21 @@ def ticks_to_kbars(ticks, interval='1Min'):
 
 def get_technical_indicator(kbars):
     
-#     kbars['rsi'] = talib.RSI(kbars.close, timeperiod=14)
+    kbars['rsi'] = talib.RSI(kbars.close, timeperiod=14)
     
 #     macd, macdsignal, macdhist = talib.MACD(kbars.close, fastperiod=12, slowperiod=26, signalperiod=9)
 #     kbars['macd'] = macd
 #     kbars['macdsignal'] = macdsignal
 #     kbars['macdhist'] = macdhist
     
-#     kbars['slowk'], kbars['slowd'] = talib.STOCH(kbars.high,
-#                         kbars.low,
-#                         kbars.close,
-#                         fastk_period=9,
-#                         slowk_period=3,
-#                         slowk_matype=0,
-#                         slowd_period=3,
-#                         slowd_matype=0)
+    kbars['slowk'], kbars['slowd'] = talib.STOCH(kbars.high,
+                        kbars.low,
+                        kbars.close,
+                        fastk_period=9,
+                        slowk_period=3,
+                        slowk_matype=0,
+                        slowd_period=3,
+                        slowd_matype=0)
     kbars['cci'] = talib.CCI(kbars.high, kbars.low, kbars.close, timeperiod=14)
     
     upper, middle, lower = talib.BBANDS(kbars.close, 
@@ -54,7 +54,7 @@ def day_trading_backtest(code, date, connection, api):
     prev_trading_date = tw_calendar.previous_close(date).date()
     
     ticks = get_ticks(code, prev_trading_date, connection, api)[0].append(get_ticks(code, date, connection, api)[0])
-    kbars = ticks_to_kbars(ticks, '1Min')
+    kbars = ticks_to_kbars(ticks, '5Min')
     if kbars.empty:
         return pd.DataFrame()
     kbars = get_technical_indicator(kbars)
@@ -80,13 +80,13 @@ def day_trading_backtest(code, date, connection, api):
         if ts ==1:
             if(kbars['close'][0] >= open_price * 1.04):
                 break
-            continue
+#             continue
         
         if (
             current_time <= date.replace(hour=10, minute=30, second=0) and
-            kbars.iloc[ts-2]['cci'] < -350 and
-            kbars.iloc[ts-2]['slowk'] < kbars.iloc[ts-2]['slowd'] and
-            kbars.iloc[ts-1]['slowk'] > kbars.iloc[ts-1]['slowd'] and  
+            kbars.iloc[ts-1]['cci'] < -100 and
+            kbars.iloc[ts-1]['slowk'] < 30 and
+            kbars.iloc[ts-1]['rsi'] < 30 and
             position == 0
         ):
             if current_price < 20:
@@ -99,12 +99,13 @@ def day_trading_backtest(code, date, connection, api):
             print('[{}] buy {} at {}'.format(current_time, code, current_price))
         
         elif (
-            (current_price > open_price * 1.095 and position != 0) or
-            (current_price >= entry_price * 1.02 and kbars.iloc[ts-1]['cci'] <= 130 and position != 0) or
-#             (current_price <= entry_price * 0.98 and position != 0) or
-            (
-            kbars.iloc[ts-1]['cci'] > 130 and
-            position != 0)
+            (current_price >= entry_price * 1.03 and position != 0) or
+            (current_price <= entry_price * 0.98 and position != 0) or
+            (current_price > entry_price and kbars.iloc[ts-1]['slowk'] > 70 and position != 0) or
+            (current_price > entry_price and kbars.iloc[ts-1]['rsi'] > 70 and position != 0) or
+            (current_price >= entry_price * 1.01 and kbars.iloc[ts-1]['cci'] < -60 and position != 0) or
+            (current_price > entry_price and kbars.iloc[ts-1]['cci'] > 200 and position != 0) or
+            (current_price > entry_price and kbars.iloc[ts-1]['upper'] < current_price and position != 0)
         ):
             exit_price = current_price
             exit_time = current_time.time()
