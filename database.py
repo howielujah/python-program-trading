@@ -100,24 +100,28 @@ def get_stocks(date, connection):
     
     tw_calendar = get_calendar('XTAI')
     
-    nearly_days = tw_calendar.sessions_window(date, -3).date
+    nearly_days = tw_calendar.sessions_window(date, -5).date
 
 #     prev_trading_date = tw_calendar.previous_close(date).date()
     
 #     df = pd.read_sql('SELECT * FROM daily_prices WHERE 日期 = "{} 00:00:00"'.format(prev_trading_date),
 #                      connection, parse_dates=['日期'])
 
-    df = pd.read_sql('SELECT *, AVG(成交股數) 平均成交股數, AVG(股價振幅) 平均股價振幅 FROM (SELECT * FROM daily_prices WHERE 日期 >= "{} 00:00:00" and 日期 <= "{} 00:00:00" ORDER BY 日期 DESC) GROUP by 證券代號'.format(nearly_days[0], nearly_days[nearly_days.size - 1]),
-                     connection, parse_dates=['日期'])
+    df = pd.read_sql('''SELECT *, AVG(shares_traded) avg_shares_traded, AVG(stock_price_swing) avg_stock_price_swing
+FROM (SELECT 證券代號 as code, 收盤價 as closing_price, 漲跌價差 as price_difference, 成交股數 as shares_traded, 股價振幅 as stock_price_swing, 日期 as trade_date FROM daily_prices WHERE trade_date >= "{} 00:00:00" and trade_date <= "{} 00:00:00" ORDER BY trade_date ASC)
+GROUP by code
+having ((closing_price >=10 and closing_price <11.45) or (closing_price >=100 and closing_price <115)) and avg_stock_price_swing >= 4 and avg_shares_traded >= 3000000 and price_difference > 0'''.format(nearly_days[0], nearly_days[nearly_days.size -2]),connection)
     
-    codes = df[
-        (((df['收盤價'] >= 10) &
-          (df['收盤價'] < 11.45)) |
-         ((df['收盤價'] >= 100) &
-          (df['收盤價'] < 115))) &
-        (df['漲跌價差'] > 0) &
-        (df['平均股價振幅'] >= 4) &
-        (df['平均成交股數'] >= 3000000)].sort_values(by=['平均股價振幅'])['證券代號'].tolist()
+#     codes = df[
+#         (((df['收盤價'] >= 10) &
+#           (df['收盤價'] < 11.45)) |
+#          ((df['收盤價'] >= 100) &
+#           (df['收盤價'] < 115))) &
+#         (df['漲跌價差'] > 0) &
+#         (df['平均股價振幅'] >= 4) &
+#         (df['平均成交股數'] >= 3000000)].sort_values(by=['平均股價振幅'])['證券代號'].tolist()
+  
+    codes = df['code'].tolist()
     
     return codes
 

@@ -1,4 +1,6 @@
 {
     "account": "",
-    "password": ""
+    "password": "",
+    "caPath": "",
+    "caPassword": ""
 }
