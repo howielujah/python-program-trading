@@ -107,10 +107,10 @@ def get_stocks(date, connection):
 #     df = pd.read_sql('SELECT * FROM daily_prices WHERE 日期 = "{} 00:00:00"'.format(prev_trading_date),
 #                      connection, parse_dates=['日期'])
 
-    df = pd.read_sql('''SELECT *, AVG(shares_traded) avg_shares_traded, AVG(stock_price_swing) avg_stock_price_swing, AVG(price_difference) avg_price_difference
-FROM (SELECT 證券代號 as code, 收盤價 as closing_price, 漲跌價差 as price_difference, 成交股數 as shares_traded, 股價振幅 as stock_price_swing, 日期 as trade_date FROM daily_prices WHERE trade_date >= "{} 00:00:00" and trade_date <= "{} 00:00:00" ORDER BY trade_date ASC)
+    df = pd.read_sql('''SELECT *, AVG(shares_traded) avg_shares_traded, AVG(stock_price_swing) avg_stock_price_swing, AVG(closing_price) avg_closing_price
+FROM (SELECT 證券代號 as code, 收盤價 as closing_price, 成交股數 as shares_traded, 股價振幅 as stock_price_swing, 日期 as trade_date FROM daily_prices WHERE trade_date >= "{} 00:00:00" and trade_date <= "{} 00:00:00" ORDER BY trade_date ASC)
 GROUP by code
-having ((closing_price >=10 and closing_price <11.45) or (closing_price >=100 and closing_price <115)) and avg_stock_price_swing >= 4 and avg_shares_traded >= 3000000 and avg_price_difference > 0'''.format(nearly_days[0], nearly_days[nearly_days.size -2]),connection)
+having ((closing_price >=10 and closing_price <11.45) or (closing_price >=100 and closing_price <115)) and avg_stock_price_swing >= 4 and avg_shares_traded >= 3000000 and closing_price >= avg_closing_price'''.format(nearly_days[0], nearly_days[nearly_days.size -2]),connection)
     
 #     codes = df[
 #         (((df['收盤價'] >= 10) &
