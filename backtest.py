@@ -18,7 +18,7 @@ def ticks_to_kbars(ticks, interval='1Min'):
 
 def get_technical_indicator(kbars):
     
-    kbars['rsi'] = talib.RSI(kbars.close, timeperiod=14)
+    kbars['rsi'] = talib.RSI(kbars.close, timeperiod=10)
     
 #     macd, macdsignal, macdhist = talib.MACD(kbars.close, fastperiod=12, slowperiod=26, signalperiod=9)
 #     kbars['macd'] = macd
@@ -33,12 +33,12 @@ def get_technical_indicator(kbars):
                         slowk_matype=0,
                         slowd_period=3,
                         slowd_matype=0)
-    kbars['cci'] = talib.CCI(kbars.high, kbars.low, kbars.close, timeperiod=14)
+    kbars['cci'] = talib.CCI(kbars.high, kbars.low, kbars.close, timeperiod=12)
     
     upper, middle, lower = talib.BBANDS(kbars.close, 
-                                        timeperiod=20, 
-                                        nbdevup=2.1, 
-                                        nbdevdn=2.1, 
+                                        timeperiod=22, 
+                                        nbdevup=2, 
+                                        nbdevdn=2, 
                                         # Moving average type: simple moving average here
                                         matype=0)
     kbars['upper'] = upper
