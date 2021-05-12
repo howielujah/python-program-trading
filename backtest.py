@@ -18,32 +18,34 @@ def ticks_to_kbars(ticks, interval='1Min'):
 
 def get_technical_indicator(kbars):
     
-    kbars['rsi'] = talib.RSI(kbars.close, timeperiod=10)
+#     kbars['rsi5'] = talib.RSI(kbars.close, timeperiod=5)
+#     kbars['rsi10'] = talib.RSI(kbars.close, timeperiod=10)
     
 #     macd, macdsignal, macdhist = talib.MACD(kbars.close, fastperiod=12, slowperiod=26, signalperiod=9)
 #     kbars['macd'] = macd
 #     kbars['macdsignal'] = macdsignal
 #     kbars['macdhist'] = macdhist
     
-    kbars['slowk'], kbars['slowd'] = talib.STOCH(kbars.high,
-                        kbars.low,
-                        kbars.close,
-                        fastk_period=9,
-                        slowk_period=3,
-                        slowk_matype=0,
-                        slowd_period=3,
-                        slowd_matype=0)
-    kbars['cci'] = talib.CCI(kbars.high, kbars.low, kbars.close, timeperiod=12)
+#     kbars['slowk'], kbars['slowd'] = talib.STOCH(kbars.high,
+#                         kbars.low,
+#                         kbars.close,
+#                         fastk_period=9,
+#                         slowk_period=3,
+#                         slowd_period=3)
+#     kbars['cci'] = talib.CCI(kbars.high, kbars.low, kbars.close, timeperiod=12)
     
-    upper, middle, lower = talib.BBANDS(kbars.close, 
-                                        timeperiod=22, 
-                                        nbdevup=2, 
-                                        nbdevdn=2, 
-                                        # Moving average type: simple moving average here
-                                        matype=0)
-    kbars['upper'] = upper
-    kbars['middle'] = middle
-    kbars['lower'] = lower
+    kbars['wr5'] = talib.WILLR(kbars.high, kbars.low, kbars.close, timeperiod=5)
+    kbars['wr15'] = talib.WILLR(kbars.high, kbars.low, kbars.close, timeperiod=15)
+    
+#     upper, middle, lower = talib.BBANDS(kbars.close, 
+#                                         timeperiod=22, 
+#                                         nbdevup=2, 
+#                                         nbdevdn=2, 
+#                                         # Moving average type: simple moving average here
+#                                         matype=0)
+#     kbars['upper'] = upper
+#     kbars['middle'] = middle
+#     kbars['lower'] = lower
 
     return kbars
 
