@@ -201,3 +201,7 @@ def backtest(start_date, end_date, connection, api, discount=0.38):
         transactions = transactions.set_index(['成交日期'])
         
     return transactions
+
+def notify(action, code, price):
+    params = {"value1":action,"value2":code,"value3":price}
+    requests.post(url = 'https://maker.ifttt.com/trigger/tw_stock/with/key/YSNoe33Pyq0UULebaSbJQ', params = params)
